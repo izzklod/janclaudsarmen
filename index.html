@@ -1033,7 +1033,7 @@
           </div>
         </a>
 
-        <a href="https://drive.google.com/drive/folders/1g9Pe732jTeByLkbbilB5q2jmDE7xs29S?usp=sharing" target="_blank" class="work-card" style="text-decoration:none; display:block;">
+        <div class="work-card" onclick="openVideoModal()" style="cursor:pointer;">
           <div class="work-thumb">
             <div class="work-thumb-inner">
               <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -1054,7 +1054,124 @@
               </svg>
             </div>
           </div>
-        </a>
+        </div>
+
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.92); backdrop-filter:blur(10px); overflow-y:auto;">
+    <div style="max-width:1100px; margin:0 auto; padding:2rem;">
+
+      <!-- Header -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+        <div>
+          <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; background:linear-gradient(135deg,#7c3aed,#a855f7,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:0.5rem;">Selected Work</div>
+          <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(32px,5vw,56px); color:#f9f7f3; letter-spacing:0.02em; line-height:1;">Short-Form Video Ads</h2>
+        </div>
+        <button onclick="closeVideoModal()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#f0ede8; width:44px; height:44px; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">✕</button>
+      </div>
+
+      <!-- Video Grid -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.2rem;">
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/6R_CwldBurI" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 01</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/H5dZdxG8EJ0" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 02</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/TfNdey-xmMo" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 03</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/epH20F0K7Gs" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 04</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/XNzzdhhL4M4" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 05</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/hI9GamGdUi8" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 06</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/1kwtR3NWI9I" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 07</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/0gbYhCvMRg8" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 08</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/bLWdM0sCXwE" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 09</div>
+        </div>
+
+        <div style="background:#10101a; border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+          <div style="position:relative; padding-bottom:177.78%; height:0; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/sbM9fF-wo5g" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding:0.9rem 1rem; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:0.82rem; color:#7a7580; letter-spacing:0.06em; text-transform:uppercase;">Reel 10</div>
+        </div>
+
+      </div>
+
+      <!-- Close bottom -->
+      <div style="text-align:center; margin-top:3rem; padding-bottom:2rem;">
+        <button onclick="closeVideoModal()" style="background:transparent; border:1px solid rgba(255,255,255,0.15); color:#7a7580; padding:0.8rem 2.5rem; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; transition:border-color 0.2s, color 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.color='#a855f7'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='#7a7580'">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function openVideoModal() {
+      document.getElementById('videoModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal() {
+      document.getElementById('videoModal').style.display = 'none';
+      document.body.style.overflow = '';
+      // Stop all iframes
+      document.querySelectorAll('#videoModal iframe').forEach(function(iframe) {
+        iframe.src = iframe.src;
+      });
+    }
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) closeVideoModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+  </script>
 
         <div class="work-card">
           <div class="work-thumb">
