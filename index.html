@@ -232,6 +232,28 @@
     .reels { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(10px, 1.4vw, 18px); }
     .reels .phone[hidden] { display: none; }
 
+    /* ── Static ad wall (masonry) ── */
+    .wall-grid { columns: 4 240px; column-gap: 14px; }
+    .ad {
+      display: block; width: 100%; margin: 0 0 14px; padding: 0; border: 0; cursor: zoom-in;
+      break-inside: avoid; border-radius: var(--r-m); overflow: hidden; background: var(--surface);
+      position: relative; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 36px -26px rgba(21,18,15,.45);
+      transition: transform .25s var(--ease), box-shadow .25s;
+    }
+    .ad[hidden] { display: none; }
+    .ad:hover { transform: translateY(-2px); box-shadow: 0 24px 44px -24px rgba(21,18,15,.5); }
+    .ad img { width: 100%; height: auto; transition: transform .6s var(--ease); }
+    .ad:hover img { transform: scale(1.03); }
+    .ad i {
+      position: absolute; left: 10px; top: 10px; font-style: normal; font-size: 12px; font-weight: 600;
+      background: rgba(21,18,15,.72); color: #fff; padding: 4px 9px; border-radius: 999px;
+      opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s var(--ease);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+    .ad:hover i, .ad:focus-visible i { opacity: 1; transform: none; }
+    .viewer .frame { aspect-ratio: auto; height: auto; max-height: 86svh; width: auto; max-width: calc(100vw - 176px); background: transparent; }
+    .viewer .frame img { display: block; max-height: 86svh; max-width: 100%; width: auto; border-radius: var(--r-l); }
+
     /* ── Feature cards (statics + automation) ── */
     .features { display: grid; gap: 18px; }
     .feature {
@@ -366,6 +388,8 @@
       .actions .btn { flex: 1 1 100%; }
       .reels { grid-template-columns: repeat(2, 1fr); }
       .points { grid-template-columns: 1fr; }
+      .wall-grid { columns: 2; column-gap: 10px; }
+      .ad { margin-bottom: 10px; border-radius: 10px; }
       .reels-bar { margin-top: -12px; }
       .filters { width: 100%; justify-content: space-between; }
       .chip { padding: 0 12px; flex: 1; }
@@ -396,7 +420,7 @@
       <nav aria-label="Main">
         <ul>
           <li><a href="#reels">Reels</a></li>
-          <li><a href="#statics">Statics</a></li>
+          <li><a href="#wall">Statics</a></li>
           <li><a href="#automation">Automation</a></li>
           <li><a href="#process">Process</a></li>
           <li><a class="btn btn-solid" href="#contact">Send a brief</a></li>
@@ -510,6 +534,27 @@
           </div>
         </div>
         <div class="reels" id="reelGrid"></div>
+      </div>
+    </section>
+
+    <!-- STATIC AD WALL: exported from Canva into /statics. Add an ad = drop a JPG in /statics + one line in WALL below. -->
+    <section id="wall" style="padding-top:0">
+      <div class="wrap">
+        <div class="head">
+          <span class="tag">Static ads</span>
+          <h2>18 statics from live campaigns. <span>No two built the same way.</span></h2>
+          <p class="sub">Native formats that don’t look like ads, performance layouts that sell, seasonal offers and AI product photography.</p>
+        </div>
+        <div class="reels-bar">
+          <div class="filters" role="group" aria-label="Filter static ads">
+            <button class="chip" aria-pressed="true" data-wall="all">All</button>
+            <button class="chip" aria-pressed="false" data-wall="native">Native formats</button>
+            <button class="chip" aria-pressed="false" data-wall="perf">Performance</button>
+            <button class="chip" aria-pressed="false" data-wall="season">Seasonal</button>
+            <button class="chip" aria-pressed="false" data-wall="photo">AI product shots</button>
+          </div>
+        </div>
+        <div class="wall-grid" id="wallGrid"></div>
       </div>
     </section>
 
@@ -651,7 +696,45 @@
     </div>
   </dialog>
 
+  <dialog class="player viewer" id="viewer" aria-label="Static ad viewer">
+    <span class="ptitle" id="vtitle"></span>
+    <button class="pbtn pclose" id="vclose" aria-label="Close viewer">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="player-inner">
+      <button class="pbtn pprev" id="vprev" aria-label="Previous ad">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 3L5 9l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="frame" id="vframe"></div>
+      <button class="pbtn pnext" id="vnext" aria-label="Next ad">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 3l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </dialog>
+
   <script>
+    // Static ad wall. tag: native | perf | season | photo
+    const WALL = [
+      { f: 'ev-tierlist.jpg',      tag: 'native', kind: 'Tier list',        brand: 'PRIMALS',      alt: 'Tier list ad ranking toothbrush bristles, natural boar in S tier' },
+      { f: 's50-firstnatural.jpg', tag: 'perf',   kind: 'Benefit grid',     brand: 'PRIMALS',      alt: 'Natural-bristle electric toothbrush on a mossy rock by a waterfall with four benefits' },
+      { f: 'ais-sneaker.jpg',      tag: 'photo',  kind: 'Editorial',        brand: 'AI Studio SG', alt: 'White sneaker on grey with the line One Product. Zero Flights.' },
+      { f: 'ev-breaking.jpg',      tag: 'native', kind: 'Breaking news',    brand: 'PRIMALS',      alt: 'Breaking news style ad showing frayed nylon bristles' },
+      { f: 's50-horsegirl.jpg',    tag: 'perf',   kind: 'Identity callout', brand: 'PRIMALS',      alt: 'Smiling woman at a ranch fence holding a horse-bristle toothbrush' },
+      { f: 'kencko-flatlay.jpg',   tag: 'photo',  kind: 'Flat lay',         brand: 'Kencko',       alt: 'Flat lay of smoothie bottle, sachets and powders on pink stone' },
+      { f: 'ev-skincare.jpg',      tag: 'perf',   kind: 'Minimal',          brand: 'PRIMALS',      alt: 'Toothbrush among skincare bottles on marble: Your skincare is clean. Is your toothbrush?' },
+      { f: 'bb-window.jpg',        tag: 'season', kind: 'Giveaway',         brand: 'PRIMALS',      alt: 'Hand holding a toothbrush against an airplane window over Bora Bora' },
+      { f: 'ev-dial.jpg',          tag: 'native', kind: 'Proof gauge',      brand: 'PRIMALS',      alt: 'Vintage electric field gauge beside the toothbrush' },
+      { f: 'ev-optimised.jpg',     tag: 'perf',   kind: 'Moody product',    brand: 'PRIMALS',      alt: 'Toothbrush on a dark desk with a smart ring and red light: Optimised everything except your toothbrush?' },
+      { f: 'ais-perfume.jpg',      tag: 'photo',  kind: 'Retail scene',     brand: 'AI Studio SG', alt: 'Perfume bottle on a glass shelf in a luxury store' },
+      { f: 'ev-wrongturn.jpg',     tag: 'native', kind: 'Then vs now',      brand: 'PRIMALS',      alt: 'Split ad: 1938 nylon toothbrush illustration beside a modern natural-bristle electric' },
+      { f: 's50-santa.jpg',        tag: 'season', kind: 'Seasonal',         brand: 'PRIMALS',      alt: 'Dear Santa note pinned to a palm tree beside the toothbrush and stocking fillers' },
+      { f: 's50-kayak.jpg',        tag: 'perf',   kind: 'Lifestyle',        brand: 'PRIMALS',      alt: 'Toothbrush on a kayak seat by a lagoon with a Black Friday paddle' },
+      { f: 'kencko-hike.jpg',      tag: 'photo',  kind: 'Lifestyle',        brand: 'Kencko',       alt: 'Laughing hiker holding a blue smoothie bottle against canyon rocks' },
+      { f: 'ev-zoom.jpg',          tag: 'native', kind: 'Macro callout',    brand: 'PRIMALS',      alt: 'Zoomed circle showing dense natural boar bristles' },
+      { f: 'leapmotor-promo.jpg',  tag: 'season', kind: 'Promo',            brand: 'Leapmotor',    alt: 'White electric SUV with Exclusive Promo PHP 999 reservation offer' },
+      { f: 'ev-podium.jpg',        tag: 'native', kind: 'Podium',           brand: 'PRIMALS',      alt: 'Toothbrush in first place on a podium under spotlight and confetti' }
+    ];
+
     // To add a reel: upload it to YouTube as a Short, then add one line here.
     const REELS = [
       { id: '6R_CwldBurI', title: 'Voiceover ad 1',          tag: 'ad' },
@@ -702,12 +785,47 @@
       b.innerHTML = `<img src="${thumb(id)}" alt="" width="405" height="720">${live}${playIcon}`;
     });
 
-    // Filters
-    document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
-      document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c));
+    // Reel filters
+    document.querySelectorAll('[data-filter]').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter]').forEach(x => x.setAttribute('aria-pressed', x === c));
       const f = c.dataset.filter;
       grid.querySelectorAll('.phone').forEach(p => p.hidden = f !== 'all' && p.dataset.tag !== f);
     }));
+
+    // Static ad wall + viewer
+    (function () {
+      const wall = document.getElementById('wallGrid');
+      wall.innerHTML = WALL.map((a, i) =>
+        `<button class="ad" data-i="${i}" data-tag="${a.tag}" aria-label="View ${a.kind} ad for ${a.brand}">
+           <img src="statics/${a.f}" alt="${a.alt}" loading="lazy" width="800" height="1000"><i>${a.kind}</i>
+         </button>`).join('');
+      document.querySelectorAll('[data-wall]').forEach(c => c.addEventListener('click', () => {
+        document.querySelectorAll('[data-wall]').forEach(x => x.setAttribute('aria-pressed', x === c));
+        const f = c.dataset.wall;
+        wall.querySelectorAll('.ad').forEach(a => a.hidden = f !== 'all' && a.dataset.tag !== f);
+      }));
+      const v = document.getElementById('viewer'), vf = document.getElementById('vframe'), vt = document.getElementById('vtitle');
+      let list = [], at = 0, from = null;
+      const show = k => {
+        at = (k + list.length) % list.length;
+        const a = WALL[list[at]];
+        vf.innerHTML = `<img src="statics/${a.f}" alt="${a.alt}">`;
+        vt.textContent = `${a.brand} · ${a.kind} · ${at + 1} / ${list.length}`;
+      };
+      wall.addEventListener('click', e => {
+        const b = e.target.closest('.ad'); if (!b) return;
+        from = b;
+        list = [...wall.querySelectorAll('.ad:not([hidden])')].map(x => +x.dataset.i);
+        show(list.indexOf(+b.dataset.i));
+        v.showModal(); document.body.style.overflow = 'hidden';
+      });
+      document.getElementById('vprev').onclick = () => show(at - 1);
+      document.getElementById('vnext').onclick = () => show(at + 1);
+      document.getElementById('vclose').onclick = () => v.close();
+      v.addEventListener('click', e => { if (e.target === v || e.target.classList.contains('player-inner')) v.close(); });
+      v.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(at - 1); if (e.key === 'ArrowRight') show(at + 1); });
+      v.addEventListener('close', () => { vf.innerHTML = ''; document.body.style.overflow = ''; if (from) from.focus(); });
+    })();
 
     // Word wheel: pinned, scroll-driven
     (function () {
