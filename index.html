@@ -392,7 +392,7 @@
       .ad { margin-bottom: 10px; border-radius: 10px; }
       .reels-bar { margin-top: -12px; }
       .filters { width: 100%; justify-content: space-between; }
-      .chip { padding: 0 12px; flex: 1; }
+      .chip { padding: 0 12px; flex: 1 1 auto; white-space: nowrap; }
       .wheel-tick { display: none; }
       .win li em { display: none; }
       .player-inner { grid-template-columns: 1fr; padding: 72px 16px 96px; }
@@ -523,14 +523,15 @@
       <div class="wrap">
         <div class="head">
           <span class="tag">Selected work</span>
-          <h2>Ten reels. <span>Each one built to win the first second.</span></h2>
+          <h2>15 reels, four styles. <span>Each one built to win the first second.</span></h2>
         </div>
         <div class="reels-bar">
           <div class="filters" role="group" aria-label="Filter reels">
             <button class="chip" aria-pressed="true" data-filter="all">All</button>
-            <button class="chip" aria-pressed="false" data-filter="ad">Ads</button>
-            <button class="chip" aria-pressed="false" data-filter="ai">AI video</button>
-            <button class="chip" aria-pressed="false" data-filter="story">Explainers</button>
+            <button class="chip" aria-pressed="false" data-filter="ugc">UGC ads</button>
+            <button class="chip" aria-pressed="false" data-filter="doc">Documentary</button>
+            <button class="chip" aria-pressed="false" data-filter="creepy">Creepy character</button>
+            <button class="chip" aria-pressed="false" data-filter="pixar">Pixar-style</button>
           </div>
         </div>
         <div class="reels" id="reelGrid"></div>
@@ -542,7 +543,7 @@
       <div class="wrap">
         <div class="head">
           <span class="tag">Static ads</span>
-          <h2>18 statics from live campaigns. <span>No two built the same way.</span></h2>
+          <h2>15 statics from live campaigns. <span>No two built the same way.</span></h2>
           <p class="sub">Native formats that don’t look like ads, performance layouts that sell, seasonal offers and AI product photography.</p>
         </div>
         <div class="reels-bar">
@@ -724,30 +725,35 @@
       { f: 'ev-skincare.jpg',      tag: 'perf',   kind: 'Minimal',          brand: 'PRIMALS',      alt: 'Toothbrush among skincare bottles on marble: Your skincare is clean. Is your toothbrush?' },
       { f: 'bb-window.jpg',        tag: 'season', kind: 'Giveaway',         brand: 'PRIMALS',      alt: 'Hand holding a toothbrush against an airplane window over Bora Bora' },
       { f: 'ev-dial.jpg',          tag: 'native', kind: 'Proof gauge',      brand: 'PRIMALS',      alt: 'Vintage electric field gauge beside the toothbrush' },
-      { f: 'ev-optimised.jpg',     tag: 'perf',   kind: 'Moody product',    brand: 'PRIMALS',      alt: 'Toothbrush on a dark desk with a smart ring and red light: Optimised everything except your toothbrush?' },
       { f: 'ais-perfume.jpg',      tag: 'photo',  kind: 'Retail scene',     brand: 'AI Studio SG', alt: 'Perfume bottle on a glass shelf in a luxury store' },
-      { f: 'ev-wrongturn.jpg',     tag: 'native', kind: 'Then vs now',      brand: 'PRIMALS',      alt: 'Split ad: 1938 nylon toothbrush illustration beside a modern natural-bristle electric' },
       { f: 's50-santa.jpg',        tag: 'season', kind: 'Seasonal',         brand: 'PRIMALS',      alt: 'Dear Santa note pinned to a palm tree beside the toothbrush and stocking fillers' },
       { f: 's50-kayak.jpg',        tag: 'perf',   kind: 'Lifestyle',        brand: 'PRIMALS',      alt: 'Toothbrush on a kayak seat by a lagoon with a Black Friday paddle' },
       { f: 'kencko-hike.jpg',      tag: 'photo',  kind: 'Lifestyle',        brand: 'Kencko',       alt: 'Laughing hiker holding a blue smoothie bottle against canyon rocks' },
       { f: 'ev-zoom.jpg',          tag: 'native', kind: 'Macro callout',    brand: 'PRIMALS',      alt: 'Zoomed circle showing dense natural boar bristles' },
-      { f: 'leapmotor-promo.jpg',  tag: 'season', kind: 'Promo',            brand: 'Leapmotor',    alt: 'White electric SUV with Exclusive Promo PHP 999 reservation offer' },
-      { f: 'ev-podium.jpg',        tag: 'native', kind: 'Podium',           brand: 'PRIMALS',      alt: 'Toothbrush in first place on a podium under spotlight and confetti' }
-    ];
+      { f: 'leapmotor-promo.jpg',  tag: 'season', kind: 'Promo',            brand: 'Leapmotor',    alt: 'White electric SUV with Exclusive Promo PHP 999 reservation offer' }    ];
 
     // To add a reel: upload it to YouTube as a Short, then add one line here.
+    // tag: ugc | doc | creepy | pixar.  YouTube Shorts use id; local clips use file (in /reels, poster = same name .jpg).
+    // Local clips are cut before the product reveal: problem and character only.
     const REELS = [
-      { id: '6R_CwldBurI', title: 'Voiceover ad 1',          tag: 'ad' },
-      { id: 'H5dZdxG8EJ0', title: 'Short-form reel 1',       tag: 'ad' },
-      { id: 'TfNdey-xmMo', title: 'Short-form reel 2',       tag: 'ad' },
-      { id: 'epH20F0K7Gs', title: 'AI short-form reel 3',    tag: 'ai' },
-      { id: 'XNzzdhhL4M4', title: 'Documentary reel 5',      tag: 'story' },
-      { id: 'hI9GamGdUi8', title: 'Creepy character reel 6', tag: 'ai' },
-      { id: '1kwtR3NWI9I', title: 'AI character 7',          tag: 'ai' },
-      { id: '0gbYhCvMRg8', title: 'Futuristic AI video 8',   tag: 'ai' },
-      { id: 'bLWdM0sCXwE', title: 'BrainMaze reel 9',        tag: 'story' },
-      { id: 'sbM9fF-wo5g', title: 'MDEXPLNR reel 10',        tag: 'story' }
+      { file: 'creepy-blind-spot', title: 'The Blind Spot',            tag: 'creepy' },
+      { file: 'pixar-lena',        title: 'Lena',                      tag: 'pixar' },
+      { id: 'H5dZdxG8EJ0',         title: 'UGC reel 1',                tag: 'ugc' },
+      { file: 'creepy-tycoon',     title: 'The Oral Care Tycoon',      tag: 'creepy' },
+      { id: 'XNzzdhhL4M4',         title: 'Documentary reel',          tag: 'doc' },
+      { file: 'pixar-maya',        title: 'Maya',                      tag: 'pixar' },
+      { file: 'creepy-the-blood',  title: 'The Blood',                 tag: 'creepy' },
+      { id: 'TfNdey-xmMo',         title: 'UGC reel 2',                tag: 'ugc' },
+      { id: '1kwtR3NWI9I',         title: 'Animated character',        tag: 'pixar' },
+      { id: 'hI9GamGdUi8',         title: 'Creepy character',          tag: 'creepy' },
+      { id: 'epH20F0K7Gs',         title: 'UGC reel 3',                tag: 'ugc' },
+      { id: 'sbM9fF-wo5g',         title: 'Explainer documentary',     tag: 'doc' },
+      { id: '6R_CwldBurI',         title: 'Voiceover documentary',     tag: 'doc' },
+      { id: 'bLWdM0sCXwE',         title: 'BrainMaze documentary',     tag: 'doc' },
+      { id: '0gbYhCvMRg8',         title: 'Futuristic documentary',    tag: 'doc' }
     ];
+    const key = r => r.id || r.file;
+    const poster = r => r.file ? `reels/${r.file}.jpg` : `https://i.ytimg.com/vi/${r.id}/oar2.jpg`;
 
     // The buyer's six key points, two lines each. Edit freely.
     const WHEEL = [
@@ -773,8 +779,8 @@
     // Reel grid
     const grid = document.getElementById('reelGrid');
     grid.innerHTML = REELS.map(r =>
-      `<button class="phone" data-open="${r.id}" data-tag="${r.tag}" aria-label="Play ${r.title}">
-         <img src="${thumb(r.id)}" alt="" loading="lazy" width="405" height="720">${playIcon}
+      `<button class="phone" data-open="${key(r)}" data-tag="${r.tag}" aria-label="Play ${r.title}">
+         <img src="${poster(r)}" alt="" loading="lazy" width="405" height="720">${playIcon}
        </button>`).join('');
 
     // Hero wall
@@ -882,14 +888,16 @@
     function show(i) {
       current = (i + REELS.length) % REELS.length;
       const r = REELS[current];
-      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${r.id}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="${r.title}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      frame.innerHTML = r.file
+        ? `<video src="reels/${r.file}.mp4" poster="reels/${r.file}.jpg" controls autoplay playsinline title="${r.title}" style="width:100%;height:100%;object-fit:cover;background:#000"></video>`
+        : `<iframe src="https://www.youtube-nocookie.com/embed/${r.id}?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="${r.title}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
       ptitle.textContent = `${r.title} · ${current + 1} / ${REELS.length}`;
     }
     document.addEventListener('click', e => {
       const b = e.target.closest('[data-open]');
       if (!b) return;
       opener = b;
-      show(REELS.findIndex(r => r.id === b.dataset.open));
+      show(REELS.findIndex(r => key(r) === b.dataset.open));
       dlg.showModal();
       document.body.style.overflow = 'hidden';
     });
